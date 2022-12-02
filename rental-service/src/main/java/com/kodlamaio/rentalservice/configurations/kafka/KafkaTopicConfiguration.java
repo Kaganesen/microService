@@ -13,7 +13,7 @@ public class KafkaTopicConfiguration {
     private String topicName;
 
     @Bean
-    public NewTopic topic(){
+    public NewTopic topic() {
         return TopicBuilder.name(topicName).build();
     }
 }

@@ -3,11 +3,10 @@ package com.kodlamaio.rentalservice.controllers;
 import com.kodlamaio.rentalservice.business.abstracts.RentalService;
 import com.kodlamaio.rentalservice.business.createRequest.CreateRentalRequest;
 import com.kodlamaio.rentalservice.business.createResponse.CreateRentalResponse;
+import com.kodlamaio.rentalservice.business.updateRequest.UpdateRentalRequest;
+import com.kodlamaio.rentalservice.business.updateResponse.UpdateRentalResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,5 +19,9 @@ public class RentalController {
     @PostMapping()
     CreateRentalResponse add (@RequestBody @Valid CreateRentalRequest createRentalRequest){
         return rentalService.add(createRentalRequest);
+    }
+    @PutMapping()
+    UpdateRentalResponse update (@RequestBody @Valid UpdateRentalRequest updateRentalRequest){
+        return rentalService.update(updateRentalRequest);
     }
 }

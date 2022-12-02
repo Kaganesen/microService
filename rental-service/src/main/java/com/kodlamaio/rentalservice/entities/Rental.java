@@ -23,7 +23,7 @@ public class Rental {
     @Column(name = "carId")
     private String carId;
     @Column(name = "dateStarted")
-    private LocalDateTime dateStarted;
+    private LocalDateTime dateStarted = LocalDateTime.now();
     @Column(name = "rentedForDays")
     private int rentedForDays;
     @Column(name = "dailyPrice")

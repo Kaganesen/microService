@@ -15,9 +15,13 @@ public class CreateRentalResponse {
 
     private String carId;
 
+    private LocalDateTime dateStarted;
+
     private int rentedForDays;
 
     private double dailyPrice;
+
+    private double totalPrice;
 
 
 

@@ -6,6 +6,7 @@ import com.torukobyte.inventoryservice.business.dto.responses.create.CreateCarRe
 import com.torukobyte.inventoryservice.business.dto.responses.get.GetAllCarsResponse;
 import com.torukobyte.inventoryservice.business.dto.responses.get.GetCarResponse;
 import com.torukobyte.inventoryservice.business.dto.responses.update.UpdateCarResponse;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface CarService {
     void delete(String id);
 
     void updateCarState(String carId,int state);
+
+    void checkIfCarAvaible (@PathVariable String id);
+
 
 }
 

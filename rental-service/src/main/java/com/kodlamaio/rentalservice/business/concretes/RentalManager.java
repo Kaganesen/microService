@@ -1,6 +1,7 @@
 package com.kodlamaio.rentalservice.business.concretes;
 
 import com.kodlamaio.rentalservice.business.abstracts.RentalService;
+import com.kodlamaio.rentalservice.business.client.CarClient;
 import com.kodlamaio.rentalservice.business.createRequest.CreateRentalRequest;
 import com.kodlamaio.rentalservice.business.createResponse.CreateRentalResponse;
 import com.kodlamaio.rentalservice.business.updateRequest.UpdateRentalRequest;
@@ -25,11 +26,13 @@ public class RentalManager implements RentalService {
     private RentalRepository rentalRepository;
     private RentalUpdateProducer rentalUpdateProducer;
     private RentalCreateProducer rentalCreateProducer;
+    private CarClient carClient;
     private ModelMapperService modelMapperService;
 
 
     @Override
     public CreateRentalResponse add(CreateRentalRequest createRentalRequest) {
+        carClient.checkIfCarAvailable(createRentalRequest.getCarId());
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest, Rental.class);
         rental.setId(UUID.randomUUID().toString());
         rental.setDateStarted(LocalDateTime.now());
@@ -52,6 +55,7 @@ public class RentalManager implements RentalService {
 
     @Override
     public UpdateRentalResponse update(UpdateRentalRequest updateRentalRequest) {
+        carClient.checkIfCarAvailable(updateRentalRequest.getOldCarId());
         Rental rental = this.modelMapperService.forRequest().map(updateRentalRequest, Rental.class);
         rental.setTotalPrice(updateRentalRequest.getDailyPrice() * updateRentalRequest.getRentedForDays());
 

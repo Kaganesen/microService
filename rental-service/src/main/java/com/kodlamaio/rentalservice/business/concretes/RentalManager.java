@@ -10,9 +10,9 @@ import com.kodlamaio.rentalservice.dataAccess.RentalRepository;
 import com.kodlamaio.rentalservice.entities.Rental;
 import com.kodlamaio.rentalservice.kafka.RentalCreateProducer;
 import com.kodlamaio.rentalservice.kafka.RentalUpdateProducer;
-import com.torukobyte.common.events.RentalCreatedEvent;
-import com.torukobyte.common.events.RentalUpdatedEvent;
-import com.torukobyte.common.util.mapping.ModelMapperService;
+import com.kodlamaio.common.events.RentalCreatedEvent;
+import com.kodlamaio.common.events.RentalUpdatedEvent;
+import com.kodlamaio.common.util.mapping.ModelMapperService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

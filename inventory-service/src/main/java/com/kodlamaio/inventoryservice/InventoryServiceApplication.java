@@ -1,4 +1,4 @@
-package com.kodlamaio.rentalservice;
+package com.kodlamaio.inventoryservice;
 
 import com.kodlamaio.common.util.mapping.ModelMapperManager;
 import com.kodlamaio.common.util.mapping.ModelMapperService;
@@ -10,21 +10,21 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableFeignClients
 @EnableDiscoveryClient
-public class RentalServiceApplication {
+@EnableFeignClients
+public class InventoryServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RentalServiceApplication.class, args);
-	}
-	@Bean
-	public ModelMapper getModelMapper() {
-		return new ModelMapper();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(InventoryServiceApplication.class, args);
+    }
 
-	@Bean
-	public ModelMapperService getModelMapperService(ModelMapper mapper) {
-		return new ModelMapperManager(mapper);
-	}
+    @Bean
+    public ModelMapper getModelMapper() {
+        return new ModelMapper();
+    }
 
+    @Bean
+    public ModelMapperService getModelMapperService(ModelMapper mapper) {
+        return new ModelMapperManager(mapper);
+    }
 }

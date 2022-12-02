@@ -1,6 +1,6 @@
 package com.kodlamaio.rentalservice.kafka;
 
-import com.torukobyte.common.events.RentalUpdatedEvent;
+import com.kodlamaio.common.events.RentalUpdatedEvent;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;

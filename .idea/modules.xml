@@ -6,7 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/discovery-server/discovery-server.iml" filepath="$PROJECT_DIR$/discovery-server/discovery-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/inventory-service/inventoryservice.iml" filepath="$PROJECT_DIR$/inventory-service/inventoryservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/invoice-service/invoice-service.iml" filepath="$PROJECT_DIR$/invoice-service/invoice-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/microservices.iml" filepath="$PROJECT_DIR$/.idea/microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-service/payment-service.iml" filepath="$PROJECT_DIR$/payment-service/payment-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/rental-service/rental-service.iml" filepath="$PROJECT_DIR$/rental-service/rental-service.iml" />
     </modules>
   </component>

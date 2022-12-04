@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="apigateway" />
+        <module name="discovery-server" />
+        <module name="payment-service" />
+        <module name="common" />
+        <module name="invoice-service" />
         <module name="inventoryservice" />
         <module name="rental-service" />
-        <module name="discovery-server" />
-        <module name="common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +21,8 @@
       <module name="common" target="17" />
       <module name="discovery-server" target="17" />
       <module name="inventoryservice" target="17" />
+      <module name="invoice-service" target="17" />
+      <module name="payment-service" target="17" />
       <module name="rental-service" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -28,6 +32,8 @@
       <module name="common" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="inventoryservice" options="-parameters" />
+      <module name="invoice-service" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
       <module name="rental-service" options="-parameters" />
     </option>
   </component>

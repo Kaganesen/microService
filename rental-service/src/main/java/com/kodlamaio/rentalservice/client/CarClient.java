@@ -1,4 +1,4 @@
-package com.kodlamaio.rentalservice.business.client;
+package com.kodlamaio.rentalservice.client;
 
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;

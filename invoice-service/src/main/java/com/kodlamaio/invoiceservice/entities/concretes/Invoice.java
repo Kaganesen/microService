@@ -23,36 +23,24 @@ import java.util.Date;
 public class Invoice {
 
     @Id
-    @Column(name = "invoiceId")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "invoiceNo")
-    private String invoiceNo;
+    @Column(name = "paymentId")
+    private String paymentId;
 
-    @JsonIgnore
-    @CreationTimestamp
-    @Column(name = "creation_date")
-    private Date creationDate;
+    @Column(name = "customerFirstName")
+    private String customerFirstName;
 
-    @Column(name = "start_date")
-    private LocalDate startDate;
+    @Column(name = "customerLastName")
+    private String customerLastName;
 
-    @Column(name = "finish_date")
-    private LocalDate finishDate;
+    @Column(name = "tax")
+    private double tax;
 
-    @Column(name = "total_rental_day")
-    private short totalRentalDay;
+    @Column(name = "totalPrice")
+    private double totalPrice;
 
-    @Column(name = "price_of_days")
-    private double priceOfDays;
-
-    @Column(name = "price_of_diff_city")
-    private double priceOfDiffCity;
-
-
-    @Column(name = "rental_car_total_price")
-    private double rentalCarTotalPrice;
-
-    @Column(name = "rentalCarId")
-    private String rentalId;
+    @Column(name = "address")
+    private String address;
 }

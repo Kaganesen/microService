@@ -1,7 +1,7 @@
 package com.kodlamaio.rentalservice.business.concretes;
 
 import com.kodlamaio.rentalservice.business.abstracts.RentalService;
-import com.kodlamaio.rentalservice.business.client.CarClient;
+import com.kodlamaio.rentalservice.client.CarClient;
 import com.kodlamaio.rentalservice.business.createRequest.CreateRentalRequest;
 import com.kodlamaio.rentalservice.business.createResponse.CreateRentalResponse;
 import com.kodlamaio.rentalservice.business.updateRequest.UpdateRentalRequest;

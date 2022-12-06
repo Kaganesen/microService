@@ -10,16 +10,20 @@
         <module name="apigateway" />
         <module name="discovery-server" />
         <module name="payment-service" />
+        <module name="config-service" />
         <module name="common" />
         <module name="invoice-service" />
         <module name="inventoryservice" />
         <module name="rental-service" />
+        <module name="filter-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="apigateway" target="17" />
       <module name="common" target="17" />
+      <module name="config-service" target="17" />
       <module name="discovery-server" target="17" />
+      <module name="filter-service" target="17" />
       <module name="inventoryservice" target="17" />
       <module name="invoice-service" target="17" />
       <module name="payment-service" target="17" />
@@ -30,7 +34,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="apigateway" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="config-service" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
+      <module name="filter-service" options="-parameters" />
       <module name="inventoryservice" options="-parameters" />
       <module name="invoice-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />

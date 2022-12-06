@@ -1,4 +1,4 @@
-package com.kodlamaio.invoiceservice.business.responses;
+package com.kodlamaio.invoiceservice.business.responses.get;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

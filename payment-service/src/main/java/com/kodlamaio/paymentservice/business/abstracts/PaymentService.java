@@ -6,6 +6,8 @@ import com.kodlamaio.paymentservice.business.responses.CreatePaymentResponse;
 
 public interface PaymentService {
     CreatePaymentResponse add(CreatePaymentRequest createPaymentRequest);
+    void delete (String id);
+    void updateStatus (String id, int status);
 
 
 

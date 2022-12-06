@@ -1,4 +1,4 @@
-package com.kodlamaio.invoiceservice.business.responses;
+package com.kodlamaio.invoiceservice.business.responses.get;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateInvoiceResponse {
+
+public class GetInvoiceResponse {
 
     private String id;
 
@@ -22,5 +23,4 @@ public class UpdateInvoiceResponse {
     private double totalPrice;
 
     private String address;
-
 }

@@ -1,4 +1,4 @@
-package com.kodlamaio.invoiceservice.business.responses;
+package com.kodlamaio.invoiceservice.business.responses.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class GetInvoiceResponse {
+public class CreateInvoiceResponse {
 
     private String id;
 

@@ -1,14 +1,13 @@
 package com.kodlamaio.paymentservice.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
@@ -18,27 +17,14 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "payment_id")
     private String id;
 
-    @Column(name = "rentalId")
+    @Column(name = "total_price")
+    private double totalPrice;
+
+    @Column(name = "rental_id")
     private String rentalId;
 
-    @Column(name = "cardNo")
-    private String cardNo;
 
-    @Column(name = "cardHolder")
-    private String cardHolder;
-
-    @Column(name = "cvv")
-    private int cvv;
-
-    @Column(name = "cardDate")
-    private LocalDate cardDate;
-
-    @Column(name = "balance")
-    private double balance;
-
-    @Column(name = "status")
-    private int status;
 }

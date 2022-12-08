@@ -1,19 +1,27 @@
 package com.kodlamaio.invoiceservice.business.abstracts;
 
+import com.kodlamaio.common.utilities.result.DataResult;
+import com.kodlamaio.common.utilities.result.Result;
 import com.kodlamaio.invoiceservice.business.requests.CreateInvoiceRequest;
-import com.kodlamaio.invoiceservice.business.requests.UpdateInvoiceRequest;
-import com.kodlamaio.invoiceservice.business.responses.create.CreateInvoiceResponse;
-import com.kodlamaio.invoiceservice.business.responses.get.GetAllInvoicesResponse;
-import com.kodlamaio.invoiceservice.business.responses.get.GetInvoiceResponse;
-import com.kodlamaio.invoiceservice.business.responses.update.UpdateInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.CreateInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.GetAllInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.GetInvoiceResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface InvoiceService {
 
-    List<GetAllInvoicesResponse> getAll();
-    CreateInvoiceResponse add(CreateInvoiceRequest createInvoiceRequest);
-    void delete(String id);
-    UpdateInvoiceResponse update(UpdateInvoiceRequest updateInvoiceRequest);
-    GetInvoiceResponse getById(String id);
+
+    DataResult<CreateInvoiceResponse> add(CreateInvoiceRequest createInvoiceRequest);
+
+    DataResult<List<GetAllInvoiceResponse>> getAll();
+
+    DataResult<GetInvoiceResponse> getById(String id);
+
+    Result delete(String id);
+
+    void createInvoice(LocalDate startDate, int totalRentalDay, double priceOfDays, double rentalCarTotalPrice, String rentalCarId);
+
+
 }

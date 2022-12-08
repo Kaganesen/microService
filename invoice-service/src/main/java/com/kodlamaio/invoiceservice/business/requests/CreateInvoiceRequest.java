@@ -1,23 +1,49 @@
 package com.kodlamaio.invoiceservice.business.requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateInvoiceRequest {
 
-    private String paymentId;
+    @JsonIgnore
+    @Pattern(regexp = "^[0-9]{16}")
+    private String invoiceNo;
 
-    private String customerFirstName;
+    @JsonIgnore
+    @CreationTimestamp
+    private Date creationDate;
 
-    private String customerLastName;
+    @NotNull
+    private LocalDate startDate;
 
-    private double tax;
+    @NotNull
+    @Min(1)
+    private int totalRentalDay;
 
-    private double totalPrice;
+    @NotNull
+    @Min(0)
+    private double priceOfDays;
 
-    private String address;
+    @NotNull
+    @Min(1)
+    private double rentalCarTotalPrice;
+
+    @NotNull
+    @Min(1)
+    private String rentalCarId;
+
+
 }

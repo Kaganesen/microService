@@ -4,18 +4,21 @@
     <file url="file://$PROJECT_DIR$/apigateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apigateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/config-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dicovery-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dicovery-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/filter-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/filter-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/inventory-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/inventory-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inventoryService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inventoryService/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/invoice-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/invoice-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rental-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rental-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rentalService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rentalService/src/main/resources" charset="UTF-8" />
   </component>
 </project>

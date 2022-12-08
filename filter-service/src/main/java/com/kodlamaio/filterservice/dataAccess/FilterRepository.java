@@ -5,14 +5,17 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface FilterRepository extends MongoRepository<Filter,String> {
+public interface FilterRepository extends MongoRepository<Filter, String> {
 
-    Filter findByCarId(String carId);
-    Filter findByPlate(String plate);
-    List<Filter> findByBrandName(String brandName);
-    List<Filter> findByModelName(String modelName);
-    List<Filter> findByBrandId(String brandId);
-    List<Filter> findByModelId(String modelId);
-    List<Filter> findByDailyPrice(double dailyPrice);
-    List<Filter> findByModelYear(int modelYear);
+    List<Filter> getFilterByBrandName(String name);
+
+    List<Filter> getFilterByDailyPrice(double dailyPrice);
+
+    List<Filter> getFilterByModelname(String modelName);
+
+    List<Filter> getFilterByDailyPriceGreaterThanEqual(double dailyPrice);
+
+    List<Filter> getFilterByDailyPriceLessThanEqual(double dailyPrice);
+
+    List<Filter> getFiltersByBrandNameOrModelname(String brandName, String modelName);
 }

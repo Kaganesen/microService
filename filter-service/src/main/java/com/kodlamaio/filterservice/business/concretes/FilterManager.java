@@ -1,20 +1,31 @@
 package com.kodlamaio.filterservice.business.concretes;
 
-import com.kodlamaio.common.events.inventory.brand.BrandUpdatedEvent;
-import com.kodlamaio.common.events.inventory.car.CarCreatedEvent;
-import com.kodlamaio.common.events.inventory.car.CarDeletedEvent;
-import com.kodlamaio.common.events.inventory.car.CarUpdatedEvent;
-import com.kodlamaio.common.events.inventory.model.ModelUpdatedEvent;
-import com.kodlamaio.common.util.mapping.ModelMapperService;
+import com.kodlamaio.common.events.FilterCreatedEvent;
+import com.kodlamaio.common.utilities.mapping.ModelMapperService;
+import com.kodlamaio.common.utilities.messages.BusinessMessage;
+import com.kodlamaio.common.utilities.result.DataResult;
+import com.kodlamaio.common.utilities.result.Result;
+import com.kodlamaio.common.utilities.result.SuccessDataResult;
+import com.kodlamaio.common.utilities.result.SuccessResult;
 import com.kodlamaio.filterservice.business.abstracts.FilterService;
-import com.kodlamaio.filterservice.business.responses.get.GetAllFiltersResponse;
-import com.kodlamaio.filterservice.business.responses.get.GetFilterResponse;
+import com.kodlamaio.filterservice.business.requests.create.CreateBrandRequest;
+import com.kodlamaio.filterservice.business.requests.create.CreateCarRequest;
+import com.kodlamaio.filterservice.business.requests.create.CreateModelRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateBrandRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateCarRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateModelRequest;
+import com.kodlamaio.filterservice.business.responses.get.GetBrandResponse;
+import com.kodlamaio.filterservice.business.responses.get.GetCarResponse;
+import com.kodlamaio.filterservice.business.responses.get.GetModelResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllBrandResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllCarResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllFilterResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllModelResponse;
 import com.kodlamaio.filterservice.dataAccess.FilterRepository;
 import com.kodlamaio.filterservice.entities.Filter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,108 +37,138 @@ public class FilterManager implements FilterService {
     private ModelMapperService modelMapperService;
 
     @Override
-    public List<GetAllFiltersResponse> getAll() {
-
-        List<Filter> filters = this.filterRepository.findAll();
-        List<GetAllFiltersResponse> responses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFiltersResponse.class)).collect(Collectors.toList());
-
-        return responses;
-    }
-
-    @Override
-    public List<GetAllFiltersResponse> getByBrandName(String brandName) {
-        List<Filter> filters = this.filterRepository.findByBrandName(brandName);
-        List<GetAllFiltersResponse> responses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFiltersResponse.class)).collect(Collectors.toList());
-
-        return responses;
-    }
-
-    @Override
-    public List<GetAllFiltersResponse> getByModelName(String modelName) {
-        List<Filter> filters = this.filterRepository.findByModelName(modelName);
-        List<GetAllFiltersResponse> responses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFiltersResponse.class)).collect(Collectors.toList());
-
-        return responses;
-    }
-
-    @Override
-    public GetFilterResponse getByPlate(String plate) {
-        Filter filter = this.filterRepository.findByPlate(plate);
-        GetFilterResponse response = this.modelMapperService.forResponse().map(filter, GetFilterResponse.class);
-
-        return response;
-    }
-
-    @Override
-    public List<GetAllFiltersResponse> getByDailyPrice(double min, double max) {
-        List<Filter> filters = this.filterRepository.findAll();
-        List<GetAllFiltersResponse> responses = new ArrayList<GetAllFiltersResponse>();
-
-        for (Filter filter : filters) {
-            if (filter.getDailyPrice() < max && filter.getDailyPrice() > min) {
-                GetAllFiltersResponse response = this.modelMapperService.forResponse().map(filter, GetAllFiltersResponse.class);
-                responses.add(response);
-            }
-        }
-
-        return responses;
-    }
-
-    @Override
-    public List<GetAllFiltersResponse> getByModelYear(int min, int max) {
-        List<Filter> filters = this.filterRepository.findAll();
-        List<GetAllFiltersResponse> responses = new ArrayList<GetAllFiltersResponse>();
-
-        for (Filter filter : filters) {
-            if (filter.getModelYear() < max && filter.getModelYear() > min) {
-                GetAllFiltersResponse response = this.modelMapperService.forResponse().map(filter, GetAllFiltersResponse.class);
-                responses.add(response);
-            }
-        }
-        return responses;
-    }
-
-    @Override
-    public void addCar(CarCreatedEvent carCreatedEvent) {
-        Filter filter = this.modelMapperService.forRequest().map(carCreatedEvent,Filter.class);
+    public Result addForBrand(CreateBrandRequest createBrandRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(createBrandRequest, Filter.class);
         this.filterRepository.save(filter);
-
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
     }
 
     @Override
-    public void deleteCar(CarDeletedEvent carDeletedEvent) {
-        Filter filter = this.modelMapperService.forRequest().map(carDeletedEvent, Filter.class);
-        this.filterRepository.delete(filter);
-
-    }
-
-    @Override
-    public void updateCar(CarUpdatedEvent carUpdatedEvent) {
-        Filter filter = this.modelMapperService.forRequest().map(carUpdatedEvent,Filter.class);
+    public Result addForCar(CreateCarRequest createCarRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(createCarRequest, Filter.class);
         this.filterRepository.save(filter);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
 
     }
 
     @Override
-    public void updateBrand(BrandUpdatedEvent brandUpdatedEvent) {
-       List<Filter> filters = this.filterRepository.findByBrandName(brandUpdatedEvent.getBrandName());
-       for (Filter filter : filters){
-           filter.setBrandName(brandUpdatedEvent.getBrandName());
-           filter.setBrandId(brandUpdatedEvent.getBrandId());
-           this.filterRepository.save(filter);
-       }
+    public Result addForModel(CreateModelRequest createModelRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(createModelRequest, Filter.class);
+        this.filterRepository.save(filter);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result updateForBrand(UpdateBrandRequest updateBrandRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(updateBrandRequest, Filter.class);
+        this.filterRepository.save(filter);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_UPDATED_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result updateForCar(UpdateCarRequest updateCarRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(updateCarRequest, Filter.class);
+        this.filterRepository.save(filter);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_UPDATED_SUCCESSFULLY);
 
     }
 
     @Override
-    public void updateModel(ModelUpdatedEvent modelUpdatedEvent) {
-        List<Filter> filters = this.filterRepository.findByModelName(modelUpdatedEvent.getModelName());
-        for (Filter filter : filters){
-            filter.setModelName(modelUpdatedEvent.getModelName());
-            filter.setModelId(modelUpdatedEvent.getModelId());
-            filter.setModelYear(filter.getModelYear());
-            this.filterRepository.save(filter);
-        }
+    public Result updateForModel(UpdateModelRequest updateModelRequest) {
+        Filter filter = this.modelMapperService.forRequest().map(updateModelRequest, Filter.class);
+        this.filterRepository.save(filter);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_UPDATED_SUCCESSFULLY);
 
+    }
+
+    @Override
+    public DataResult<GetBrandResponse> getByBrandId(String brandId) {
+        Filter filter = this.filterRepository.findById(brandId).get();
+        GetBrandResponse getBrandResponse = this.modelMapperService.forResponse().map(filter, GetBrandResponse.class);
+        return new SuccessDataResult(getBrandResponse, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<GetModelResponse> getByModelId(String modelId) {
+        Filter filter = this.filterRepository.findById(modelId).get();
+        GetModelResponse getModelResponse = this.modelMapperService.forResponse().map(filter, GetModelResponse.class);
+        return new SuccessDataResult(getModelResponse, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<GetCarResponse> getByCarId(String carId) {
+        Filter filter = this.filterRepository.findById(carId).get();
+        GetCarResponse getCarResponse = this.modelMapperService.forResponse().map(filter, GetCarResponse.class);
+        return new SuccessDataResult(getCarResponse, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllBrandResponse>> getAllBrand() {
+        List<Filter> filters = this.filterRepository.findAll();
+        List<GetAllBrandResponse> getAllBrandResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllBrandResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllBrandResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllCarResponse>> getAllCar() {
+        List<Filter> filters = this.filterRepository.findAll();
+        List<GetAllCarResponse> getAllCarResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filters, GetAllCarResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllCarResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllModelResponse>> getAllModel() {
+        List<Filter> filters = this.filterRepository.findAll();
+        List<GetAllModelResponse> getAllModelResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllModelResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllModelResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFilterByBrandName(String name) {
+        List<Filter> filters = this.filterRepository.getFilterByBrandName(name);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFilterByDailyPrice(double dailyPrice) {
+        List<Filter> filters = this.filterRepository.getFilterByDailyPrice(dailyPrice);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFilterByModelname(String modelName) {
+        List<Filter> filters = this.filterRepository.getFilterByModelname(modelName);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFilterByDailyPriceGreaterThanEqual(double dailyPrice) {
+        List<Filter> filters = this.filterRepository.getFilterByDailyPriceGreaterThanEqual(dailyPrice);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFilterByDailyPriceLessThanEqual(double dailyPrice) {
+        List<Filter> filters = this.filterRepository.getFilterByDailyPriceLessThanEqual(dailyPrice);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public DataResult<List<GetAllFilterResponse>> getFiltersByBrandNameOrModelname(String brandName, String modelName) {
+        List<Filter> filters = this.filterRepository.getFiltersByBrandNameOrModelname(brandName, modelName);
+        List<GetAllFilterResponse> getAllFilterResponses = filters.stream().map(filter -> this.modelMapperService.forResponse().map(filter, GetAllFilterResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllFilterResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public void filter(FilterCreatedEvent event) {
+        Filter filter = this.modelMapperService.forRequest().map(event, Filter.class);
+        this.filterRepository.save(filter);
     }
 }

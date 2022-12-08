@@ -1,67 +1,95 @@
 package com.kodlamaio.invoiceservice.business.concretes;
 
-import com.kodlamaio.common.events.InvoiceCreatedEvent;
-import com.kodlamaio.common.util.mapping.ModelMapperService;
+import com.kodlamaio.common.utilities.exceptions.BusinessException;
+import com.kodlamaio.common.utilities.mapping.ModelMapperService;
+import com.kodlamaio.common.utilities.messages.BusinessMessage;
+import com.kodlamaio.common.utilities.result.DataResult;
+import com.kodlamaio.common.utilities.result.Result;
+import com.kodlamaio.common.utilities.result.SuccessDataResult;
+import com.kodlamaio.common.utilities.result.SuccessResult;
 import com.kodlamaio.invoiceservice.business.abstracts.InvoiceService;
+import com.kodlamaio.invoiceservice.business.generate.GenerateRandomCode;
 import com.kodlamaio.invoiceservice.business.requests.CreateInvoiceRequest;
-import com.kodlamaio.invoiceservice.business.requests.UpdateInvoiceRequest;
-import com.kodlamaio.invoiceservice.business.responses.create.CreateInvoiceResponse;
-import com.kodlamaio.invoiceservice.business.responses.get.GetAllInvoicesResponse;
-import com.kodlamaio.invoiceservice.business.responses.get.GetInvoiceResponse;
-import com.kodlamaio.invoiceservice.business.responses.update.UpdateInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.CreateInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.GetAllInvoiceResponse;
+import com.kodlamaio.invoiceservice.business.responses.GetInvoiceResponse;
 import com.kodlamaio.invoiceservice.dataAccess.InvoiceRepository;
-import com.kodlamaio.invoiceservice.kafka.concretes.Invoice;
-import com.kodlamaio.invoiceservice.kafka.InvoiceProducer;
+import com.kodlamaio.invoiceservice.entities.Invoice;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class InvoiceManager implements InvoiceService {
-
-
-    private InvoiceRepository invoiceRepository;
     private ModelMapperService modelMapperService;
-    private InvoiceProducer invoiceProducer;
+    private InvoiceRepository invoiceRepository;
+
 
     @Override
-    public List<GetAllInvoicesResponse> getAll() {
-        return null;
-    }
+    public DataResult<CreateInvoiceResponse> add(CreateInvoiceRequest createInvoiceRequest) {
 
-    @Override
-    public CreateInvoiceResponse add(CreateInvoiceRequest createInvoiceRequest) {
-        Invoice invoice = modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
         invoice.setId(UUID.randomUUID().toString());
-
-        Invoice createdInvoice = invoiceRepository.save(invoice);
-
-        InvoiceCreatedEvent invoiceCreatedEvent = new InvoiceCreatedEvent();
-        invoiceCreatedEvent.setPaymentId(createdInvoice.getPaymentId());
-        invoiceCreatedEvent.setMessage("Payment Created");
-
-        this.invoiceProducer.sendMessage(invoiceCreatedEvent);
-
-        CreateInvoiceResponse createPaymentResponse = modelMapperService.forResponse().map(invoice, CreateInvoiceResponse.class);
-
-        return createPaymentResponse;
+        this.invoiceRepository.save(invoice);
+        CreateInvoiceResponse createInvoiceResponse = this.modelMapperService.forResponse().map(invoice, CreateInvoiceResponse.class);
+        return new SuccessDataResult<>(createInvoiceResponse, BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
     }
 
     @Override
-    public void delete(String id) {
+    public void createInvoice(LocalDate startDate, int totalRentalDay, double priceOfDays, double rentalCarTotalPrice, String rentalCarId) {
 
+        CreateInvoiceRequest createInvoiceRequest = new CreateInvoiceRequest();
+
+        createInvoiceRequest.setStartDate(startDate);
+        createInvoiceRequest.setPriceOfDays(priceOfDays);
+        createInvoiceRequest.setTotalRentalDay(totalRentalDay);
+        createInvoiceRequest.setRentalCarTotalPrice(rentalCarTotalPrice);
+        createInvoiceRequest.setRentalCarId(rentalCarId);
+        createInvoiceRequest.setInvoiceNo(generateCode());
+        Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest,Invoice.class);
+        this.invoiceRepository.save(invoice);
+    }
+
+    private String generateCode() {
+        while (true) {
+            String code = GenerateRandomCode.generate();
+            if (!this.invoiceRepository.existsByInvoiceNo(code)) {
+                return code;
+            }
+        }
     }
 
     @Override
-    public UpdateInvoiceResponse update(UpdateInvoiceRequest updateInvoiceRequest) {
-        return null;
+    public DataResult<List<GetAllInvoiceResponse>> getAll() {
+        List<Invoice> invoices = this.invoiceRepository.findAll();
+        List<GetAllInvoiceResponse> getAllInvoiceResponses = invoices.stream().map(invoice -> this.modelMapperService.forResponse().map(invoice, GetAllInvoiceResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(getAllInvoiceResponses, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
     }
 
     @Override
-    public GetInvoiceResponse getById(String id) {
-        return null;
+    public DataResult<GetInvoiceResponse> getById(String id) {
+        checkIfExitsById(id);
+        Invoice invoice = this.invoiceRepository.findById(id).get();
+        GetInvoiceResponse getInvoiceResponse = this.modelMapperService.forResponse().map(invoice, GetInvoiceResponse.class);
+        return new SuccessDataResult<>(getInvoiceResponse, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result delete(String id) {
+        checkIfExitsById(id);
+        Invoice invoice = this.invoiceRepository.findById(id).get();
+        this.invoiceRepository.delete(invoice);
+        return new SuccessResult(BusinessMessage.GlobalMessages.DATA_DELETED_SUCCESSFULLY);
+    }
+
+    private void checkIfExitsById(String id) {
+        if (!this.invoiceRepository.existsById(id)) {
+            throw new BusinessException(BusinessMessage.GlobalMessages.ID_NOT_FOUND + id);
+        }
     }
 }

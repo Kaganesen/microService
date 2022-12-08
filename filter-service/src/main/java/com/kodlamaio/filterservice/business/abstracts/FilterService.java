@@ -1,28 +1,64 @@
 package com.kodlamaio.filterservice.business.abstracts;
 
-import com.kodlamaio.common.events.inventory.brand.BrandUpdatedEvent;
-import com.kodlamaio.common.events.inventory.car.CarCreatedEvent;
-import com.kodlamaio.common.events.inventory.car.CarDeletedEvent;
-import com.kodlamaio.common.events.inventory.car.CarUpdatedEvent;
-import com.kodlamaio.common.events.inventory.model.ModelUpdatedEvent;
-import com.kodlamaio.filterservice.business.responses.get.GetAllFiltersResponse;
-import com.kodlamaio.filterservice.business.responses.get.GetFilterResponse;
+import com.kodlamaio.common.events.FilterCreatedEvent;
+import com.kodlamaio.common.utilities.result.DataResult;
+import com.kodlamaio.common.utilities.result.Result;
+import com.kodlamaio.filterservice.business.requests.create.CreateBrandRequest;
+import com.kodlamaio.filterservice.business.requests.create.CreateCarRequest;
+import com.kodlamaio.filterservice.business.requests.create.CreateModelRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateBrandRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateCarRequest;
+import com.kodlamaio.filterservice.business.requests.update.UpdateModelRequest;
+import com.kodlamaio.filterservice.business.responses.get.GetBrandResponse;
+import com.kodlamaio.filterservice.business.responses.get.GetCarResponse;
+import com.kodlamaio.filterservice.business.responses.get.GetModelResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllBrandResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllCarResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllFilterResponse;
+import com.kodlamaio.filterservice.business.responses.getAll.GetAllModelResponse;
 
 import java.util.List;
 
 public interface FilterService {
 
-    List<GetAllFiltersResponse> getAll();
-    List<GetAllFiltersResponse> getByBrandName(String brandName);
-    List<GetAllFiltersResponse> getByModelName(String modelName);
-    GetFilterResponse getByPlate(String plate);
-    List<GetAllFiltersResponse> getByDailyPrice(double min,double max);
-    List<GetAllFiltersResponse> getByModelYear(int min, int max);
+    void filter(FilterCreatedEvent event);
 
-    void addCar(CarCreatedEvent carCreatedEvent);
-    void deleteCar(CarDeletedEvent carDeletedEvent);
-    void updateCar(CarUpdatedEvent carUpdatedEvent);
+    //Create Operations
+    Result addForBrand(CreateBrandRequest createBrandRequest);
 
-    void updateBrand(BrandUpdatedEvent brandUpdatedEvent);
-    void updateModel(ModelUpdatedEvent modelUpdatedEvent);
+    Result addForCar(CreateCarRequest createCarRequest);
+
+    Result addForModel(CreateModelRequest createModelRequest);
+
+    // Update Operations
+    Result updateForBrand(UpdateBrandRequest updateBrandRequest);
+
+    Result updateForCar(UpdateCarRequest updateCarRequest);
+
+    Result updateForModel(UpdateModelRequest updateModelRequest);
+
+
+    DataResult<GetBrandResponse> getByBrandId(String brandId);
+
+    DataResult<GetModelResponse> getByModelId(String modelId);
+
+    DataResult<GetCarResponse> getByCarId(String carId);
+
+    DataResult<List<GetAllBrandResponse>> getAllBrand();
+
+    DataResult<List<GetAllCarResponse>> getAllCar();
+
+    DataResult<List<GetAllModelResponse>> getAllModel();
+
+    DataResult<List<GetAllFilterResponse>> getFilterByBrandName(String name);
+
+    DataResult<List<GetAllFilterResponse>> getFilterByDailyPrice(double dailyPrice);
+
+    DataResult<List<GetAllFilterResponse>> getFilterByModelname(String modelName);
+
+    DataResult<List<GetAllFilterResponse>> getFilterByDailyPriceGreaterThanEqual(double dailyPrice);
+
+    DataResult<List<GetAllFilterResponse>> getFilterByDailyPriceLessThanEqual(double dailyPrice);
+
+    DataResult<List<GetAllFilterResponse>> getFiltersByBrandNameOrModelname(String brandName, String modelName);
 }

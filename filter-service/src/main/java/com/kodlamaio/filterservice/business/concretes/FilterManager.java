@@ -51,6 +51,7 @@ public class FilterManager implements FilterService {
 
     }
 
+
     @Override
     public Result addForModel(CreateModelRequest createModelRequest) {
         Filter filter = this.modelMapperService.forRequest().map(createModelRequest, Filter.class);

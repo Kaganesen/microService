@@ -17,6 +17,7 @@ public interface CarService {
 	DataResult<List<GetAllCarsResponse>> getAll();
 	UpdateCarResponse updateCarStateForRental(String carId,int state);
 
+
 	DataResult<CreateCarResponse> add(CreateCarRequest request);
 	DataResult<UpdateCarResponse> update(UpdateCarRequest request, String id);
 	Result delete(String id);

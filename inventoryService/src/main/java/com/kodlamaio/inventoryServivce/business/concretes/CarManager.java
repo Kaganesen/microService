@@ -54,19 +54,22 @@ public class CarManager implements CarService {
 	@Override
 	public DataResult<CreateCarResponse> add(CreateCarRequest request) {
 
-		Car car = mapper.forRequest().map(request, Car.class);
-		car.setId(UUID.randomUUID().toString());
-		car.setState(1); // state 1 Available, satate 2 NotAvailable
-		repository.save(car);
-		CreateCarResponse response = mapper.forResponse().map(car, CreateCarResponse.class);
+        Car car = mapper.forRequest().map(request, Car.class);
+        car.setId(UUID.randomUUID().toString());
+        car.setState(1);
 
-		FilterCreatedEvent filterCreatedEvent = new FilterCreatedEvent();
-		filterCreatedEvent.setPlate(car.getPlate());
-		filterCreatedEvent.setDailyPrice(car.getDailyPrice());
-		filterCreatedEvent.setState(car.getState());
-		filterCreatedEvent.setModelYear(car.getModelYear());
-		filterCreatedEvent.setModelname(car.getModel().getName());
-		filterCreatedEvent.setBrandName(car.getModel().getBrand().getName());
+        // state 1 Available, state 2 Maintance , state 3 Rental
+
+        repository.save(car);
+        CreateCarResponse response = mapper.forResponse().map(car, CreateCarResponse.class);
+
+        FilterCreatedEvent filterCreatedEvent = new FilterCreatedEvent();
+        filterCreatedEvent.setPlate(car.getPlate());
+        filterCreatedEvent.setDailyPrice(car.getDailyPrice());
+        filterCreatedEvent.setState(car.getState());
+        filterCreatedEvent.setModelYear(car.getModelYear());
+        filterCreatedEvent.setModelname(car.getModel().getName());
+        filterCreatedEvent.setBrandName(car.getModel().getBrand().getName());
 		filterCreatedEvent.setBrandId(car.getModel().getBrand().getId());
 		filterCreatedEvent.setState(car.getState());
 
@@ -117,5 +120,3 @@ public class CarManager implements CarService {
 		}
 	}
 }
-
-//openfeign

@@ -23,20 +23,17 @@ public interface FilterService {
 
     void filter(FilterCreatedEvent event);
 
-    //Create Operations
     Result addForBrand(CreateBrandRequest createBrandRequest);
 
     Result addForCar(CreateCarRequest createCarRequest);
 
     Result addForModel(CreateModelRequest createModelRequest);
 
-    // Update Operations
     Result updateForBrand(UpdateBrandRequest updateBrandRequest);
 
     Result updateForCar(UpdateCarRequest updateCarRequest);
 
     Result updateForModel(UpdateModelRequest updateModelRequest);
-
 
     DataResult<GetBrandResponse> getByBrandId(String brandId);
 

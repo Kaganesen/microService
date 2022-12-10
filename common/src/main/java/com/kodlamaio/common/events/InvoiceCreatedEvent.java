@@ -20,6 +20,7 @@ public class InvoiceCreatedEvent {
     private double rentalCarTotalPrice;
 
     private String rentalCarId;
+
     private String message;
 
 

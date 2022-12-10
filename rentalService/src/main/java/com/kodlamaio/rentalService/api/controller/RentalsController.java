@@ -25,13 +25,10 @@ public class RentalsController {
     public DataResult<CreateRentalResponse> add(@RequestBody CreateRentalRequest createRentalRequest) {
         return rentalService.add(createRentalRequest);
     }
-
     @PutMapping("/update")
     public DataResult<UpdateRentalResponse> update(@RequestBody UpdateRentalRequest updateRentalRequest) {
         return this.rentalService.update(updateRentalRequest);
     }
-
-
     @GetMapping("/getTotalPrice/{rentalId}")
     public double getTotalPrice(@PathVariable String rentalId) {
         return rentalService.getTotalPrice(rentalId);

@@ -26,7 +26,7 @@
         <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/filter-service">Filter Service</a> - TThis Service Has Filtering Operations
             </ul>
                <ul>
-        <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/invertoryService">Inventory Service</a> - - In this service, there are stocks in the project.
+        <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/inventoryService">Inventory Service</a> - - In this service, there are stocks in the project.
             </ul>
                <ul>
         <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/invoice-service">Invoice Service</a> -- Invoice Transactions are Made in This Service.

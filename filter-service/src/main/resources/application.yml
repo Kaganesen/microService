@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: flter
-  cloud:
-    config:
-      profile: dev
-  config:
-    import: configserver:http://localhost:8888

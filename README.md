@@ -23,7 +23,7 @@
         <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/rentalService">Rental Service</a> - Car Rental Transactions are carried out in this service.
             </ul>
             <ul>
-        <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/filter-service">Filter Service</a> - TThis Service Has Filtering Operations
+        <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/filter-service">Filter Service</a> - This Service Has Filtering Operations
             </ul>
                <ul>
         <li><a href="https://github.com/Kaganesen/microService/tree/master/RentACarMicroserviceProject/inventoryService">Inventory Service</a> - - In this service, there are stocks in the project.

@@ -72,7 +72,6 @@ E-Mail - [esen.kagan@hotmail.com](mailto:esen.kagan@hotmail.com)
 
 Linkedin - [linkedin.com/Kaganesen](https://www.linkedin.com/in/kaganesen/)
 
-Project Link: [Rent-A-Car-Project](https://github.com/Kaganesen/microService)
 
 ---
 
